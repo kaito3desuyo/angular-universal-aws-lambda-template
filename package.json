@@ -13,7 +13,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy:dev": "sls deploy -v"
+    "deploy:dev": "STAGE=dev NODE_ENV=production sls deploy -v",
+    "deploy:prod": "STAGE=prod NODE_ENV=production sls deploy -v"
   },
   "dependencies": {
     "@angular/animations": "~8.2.0",
