@@ -12,7 +12,8 @@
     "dev:spa": "ng serve -c spa",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy:prod": "STAGE=prod NODE_ENV=production sls deploy -v"
   },
   "dependencies": {
     "@angular/animations": "~8.2.0",
@@ -28,6 +29,8 @@
     "@angularclass/hmr": "~2.1.3",
     "@nguniversal/express-engine": "~8.1.1",
     "@nguniversal/module-map-ngfactory-loader": "~8.1.1",
+    "aws-lambda": "^0.1.2",
+    "aws-serverless-express": "^3.3.6",
     "express": "~4.17.1",
     "rxjs": "~6.5.2",
     "tslib": "~1.10.0",
@@ -52,6 +55,7 @@
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "~1.4.2",
     "protractor": "~5.4.2",
+    "serverless": "^1.58.0",
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
     "typescript": "~3.4.5",
