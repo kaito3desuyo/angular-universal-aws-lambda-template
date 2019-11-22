@@ -13,11 +13,13 @@ import { MODULE_MAP } from '@nguniversal/module-map-ngfactory-loader';
 import { ServerAPIOptions, createApi } from './api';
 import { environment } from './environments/environment';
 
+import lambda from 'aws-lambda';
+import awsServerlessExpress from 'aws-serverless-express';
+import appServer from './server';
 
 // WARN: don't remove export of AppServerModule.
 // Removing export below will break replaceServerBootstrap() transformer
 export { AppServerModule } from './app/app.server.module';
-
 
 // Faster server renders w/ Prod mode.
 // Prod mode isn't enabled by default because that breaks debugging tools like Augury.
@@ -25,10 +27,8 @@ if (environment.production) {
   enableProdMode();
 }
 
-
 export const PORT = process.env.PORT || 4000;
 export const BROWSER_DIST_PATH = join(__dirname, '..', 'browser');
-
 
 export const getNgRenderMiddlewareOptions: () => NgSetupOptions = () => ({
   bootstrap: exports.AppServerModuleNgFactory,
@@ -37,16 +37,15 @@ export const getNgRenderMiddlewareOptions: () => NgSetupOptions = () => ({
     {
       provide: MODULE_MAP,
       useFactory: () => exports.LAZY_MODULE_MAP,
-      deps: [],
-    },
-  ],
+      deps: []
+    }
+  ]
 });
 
 export const getServerAPIOptions: () => ServerAPIOptions = () => ({
   distPath: BROWSER_DIST_PATH,
-  ngSetup: getNgRenderMiddlewareOptions(),
+  ngSetup: getNgRenderMiddlewareOptions()
 });
-
 
 let requestListener = createApi(getServerAPIOptions());
 
@@ -59,21 +58,27 @@ server.listen(PORT, () => {
   console.log(`Server listening -- http://localhost:${PORT}`);
 });
 
-
 // HMR on server side
 if (module.hot) {
   const hmr = () => {
     try {
-      const { AppServerModuleNgFactory } = require('./app/app.server.module.ngfactory');
+      const {
+        AppServerModuleNgFactory
+      } = require('./app/app.server.module.ngfactory');
       exports.AppServerModuleNgFactory = AppServerModuleNgFactory;
     } catch (err) {
-      console.warn(`[HMR] Cannot update export of AppServerModuleNgFactory. ${err.stack || err.message}`);
+      console.warn(
+        `[HMR] Cannot update export of AppServerModuleNgFactory. ${err.stack ||
+          err.message}`
+      );
     }
 
     try {
       requestListener = require('./api').createApi(getServerAPIOptions());
     } catch (err) {
-      console.warn(`[HMR] Cannot update server api. ${err.stack || err.message}`);
+      console.warn(
+        `[HMR] Cannot update server api. ${err.stack || err.message}`
+      );
     }
   };
 
@@ -82,5 +87,11 @@ if (module.hot) {
   module.hot.accept('./app/app.server.module.ngfactory', hmr);
 }
 
+module.exports.render = (
+  event: lambda.APIGatewayEvent,
+  context: lambda.Context
+) => {
+  awsServerlessExpress.proxy(server, event, context);
+};
 
 export default server;
