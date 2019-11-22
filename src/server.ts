@@ -87,7 +87,7 @@ if (module.hot) {
   module.hot.accept('./app/app.server.module.ngfactory', hmr);
 }
 
-module.exports.render = (
+export const render = (
   event: lambda.APIGatewayEvent,
   context: lambda.Context
 ) => {
