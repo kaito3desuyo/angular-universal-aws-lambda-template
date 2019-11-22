@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/server",
+    "module": "commonjs"
+  },
+  "angularCompilerOptions": {
+    "entryModule": "./src/app/app.server.module#AppServerModule"
+  },
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.stories.ts",
+    "e2e/**",
+    "src/app/app.browser.module.ts",
+    "src/main.ts",
+    "src/stories/**"
+  ]
+}
