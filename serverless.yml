@@ -19,7 +19,7 @@ iamRoleStatements:
 
 functions:
   render:
-    handler: dist/app/server/main.render
+    handler: dist/app/server/main.handler
     events:
       - http:
           path: '/'

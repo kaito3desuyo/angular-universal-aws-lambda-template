@@ -10,12 +10,9 @@ import { enableProdMode } from '@angular/core';
 import { NgSetupOptions } from '@nguniversal/express-engine';
 import { MODULE_MAP } from '@nguniversal/module-map-ngfactory-loader';
 
+import * as awsServerlessExpress from 'aws-serverless-express';
 import { ServerAPIOptions, createApi } from './api';
 import { environment } from './environments/environment';
-
-import lambda from 'aws-lambda';
-import awsServerlessExpress from 'aws-serverless-express';
-import appServer from './server';
 
 // WARN: don't remove export of AppServerModule.
 // Removing export below will break replaceServerBootstrap() transformer
@@ -87,11 +84,8 @@ if (module.hot) {
   module.hot.accept('./app/app.server.module.ngfactory', hmr);
 }
 
-export const render = (
-  event: lambda.APIGatewayEvent,
-  context: lambda.Context
-) => {
-  awsServerlessExpress.proxy(server, event, context);
-};
+const render = awsServerlessExpress.createServer(requestListener);
+export const handler = (event, context) =>
+  awsServerlessExpress.proxy(render, event, context);
 
 export default server;
