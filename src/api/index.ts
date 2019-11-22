@@ -1,23 +1,26 @@
 import { NgSetupOptions, ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 
-
 export interface ServerAPIOptions {
   distPath: string;
   ngSetup?: NgSetupOptions;
 }
 
-
 export function createApi(options: ServerAPIOptions) {
   const router = express();
 
+  router.get('/api/*', (req, res, next) => {
+    res.json(req.url);
+  });
   router.use(createNgRenderMiddleware(options.distPath, options.ngSetup));
 
   return router;
 }
 
-
-export function createNgRenderMiddleware(distPath: string, ngSetup: NgSetupOptions) {
+export function createNgRenderMiddleware(
+  distPath: string,
+  ngSetup: NgSetupOptions
+) {
   const router = express();
 
   router.set('view engine', 'html');
