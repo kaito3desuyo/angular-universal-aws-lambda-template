@@ -20,7 +20,6 @@ iamRoleStatements:
 functions:
   render:
     handler: dist/app/server/main.render
-    warmup: true
     events:
       - http:
           path: '/'
