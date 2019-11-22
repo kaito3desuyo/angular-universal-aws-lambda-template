@@ -12,5 +12,6 @@ phases:
   post_build:
     commands:
       - aws s3 rm s3://ng-univ-lambda-template --recursive
-      - aws s3 sync ./dist/app/browser s3://ng-univ-lambda-template
+      - aws s3 sync ./dist/app/browser s3://ng-univ-lambda-template/_angular
       - npm run deploy:dev
+      - aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths "/*"
