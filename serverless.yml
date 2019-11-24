@@ -21,6 +21,28 @@ iamRoleStatements:
             - Ref: AWS::AccountId
             - function:${self:service}-${opt:stage, self:provider.stage}-*
 
+package:
+  individually: true
+  exclude:
+    - .git/**
+    - e2e/**
+    - src/**
+    - .editorconfig
+    - .gitignore
+    - .prettierrc
+    - angular.json
+    - browserslist
+    - buildspec.yml
+    - karma.conf.js
+    - package-lock.json
+    - package.json
+    - README.md
+    - tsconfig.app.json
+    - tsconfig.json
+    - tsconfig.server.json
+    - tsconfig.spec.json
+    - tslint.json
+
 functions:
   render:
     handler: dist/app/server/main.handler
