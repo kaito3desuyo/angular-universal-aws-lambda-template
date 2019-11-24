@@ -6,7 +6,7 @@ phases:
       nodejs: 10
     commands:
       - npm install
-      - npm install -g @angular/cli
+      - ls node_modules
   build:
     commands:
       - npm run build:${DEPLOY_STAGE}
