@@ -24,24 +24,11 @@ iamRoleStatements:
 package:
   individually: true
   exclude:
-    - .git/**
-    - e2e/**
-    - src/**
-    - .editorconfig
-    - .gitignore
-    - .prettierrc
-    - angular.json
-    - browserslist
-    - buildspec.yml
-    - karma.conf.js
-    - package-lock.json
+    - ./**
+    - '!node_modules/**'
+  include:
+    - dist/app/server/**
     - package.json
-    - README.md
-    - tsconfig.app.json
-    - tsconfig.json
-    - tsconfig.server.json
-    - tsconfig.spec.json
-    - tslint.json
 
 functions:
   render:
