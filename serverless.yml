@@ -21,7 +21,6 @@ provider:
               - function:${self:service}-${opt:stage, self:provider.stage}-*
 
 package:
-  individually: true
   exclude:
     - ./**
     - '!node_modules/**'
