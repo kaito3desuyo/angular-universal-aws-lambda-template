@@ -3,12 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { WelcomeRoutingModule } from './welcome-routing.module';
 
-
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    WelcomeRoutingModule,
-  ],
+    declarations: [],
+    imports: [CommonModule, WelcomeRoutingModule]
 })
-export class WelcomeModule { }
+export class WelcomeModule {}

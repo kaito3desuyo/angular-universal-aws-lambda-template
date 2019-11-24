@@ -5,17 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './not-found.component';
 
-
 @NgModule({
-  declarations: [
-    AppComponent,
-    NotFoundComponent,
-  ],
-  imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-app' }),
-    AppRoutingModule,
-  ],
-  providers: [],
-  bootstrap: [ AppComponent ],
+    declarations: [AppComponent, NotFoundComponent],
+    imports: [
+        BrowserModule.withServerTransition({ appId: 'ng-app' }),
+        AppRoutingModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
