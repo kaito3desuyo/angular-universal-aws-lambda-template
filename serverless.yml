@@ -25,7 +25,7 @@ package:
     - ./**
     - '!node_modules/**'
   include:
-    - dist/app/server/**
+    - dist/app/**
     - package.json
 
 functions:
