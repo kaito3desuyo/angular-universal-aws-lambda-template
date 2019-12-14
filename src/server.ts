@@ -46,6 +46,10 @@ export const getServerAPIOptions: () => ServerAPIOptions = () => ({
 
 let requestListener = createApi(getServerAPIOptions());
 
+const render = awsServerlessExpress.createServer(requestListener);
+export const handler = (event, context) =>
+    awsServerlessExpress.proxy(render, event, context);
+
 // Start up the Node server
 const server = createServer((req, res) => {
     requestListener(req, res);
@@ -83,9 +87,5 @@ if (module.hot) {
     module.hot.accept('./app/app.server.module', hmr);
     module.hot.accept('./app/app.server.module.ngfactory', hmr);
 }
-
-const render = awsServerlessExpress.createServer(requestListener);
-export const handler = (event, context) =>
-    awsServerlessExpress.proxy(render, event, context);
 
 export default server;
