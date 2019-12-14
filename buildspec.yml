@@ -11,4 +11,7 @@ phases:
       - npm run build:${DEPLOY_STAGE}
   post_build:
     commands:
+      - aws s3 rm s3://${BUCKET_NAME} --recursive
+      - aws s3 sync ./dist/app/browser s3://${BUCKET_NAME}/_angular
       - npm run deploy:${DEPLOY_STAGE}
+      - aws cloudfront create-invalidation --distribution-id ${DISTRIBUTION_ID} --paths "/*"
